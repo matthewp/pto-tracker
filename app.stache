@@ -1,0 +1,19 @@
+<can-import from="~/components/loading/" />
+
+{{#if(isAuthenticated)}}
+  <can-import from="~/components/dashboard/">
+    {{#if(isPending)}}
+      <pto-loading />
+    {{else}}
+      <pto-dashboard apiInfo:from="apiInfo" />
+    {{/if}}
+  </can-import>
+{{else}}
+  <can-import from="~/components/authenticate/">
+    {{#if(isPending)}}
+      <pto-loading />
+    {{else}}
+      <pto-authenticate apiInfo:bind="apiInfo" />
+    {{/if}}
+  </can-import>
+{{/if}}

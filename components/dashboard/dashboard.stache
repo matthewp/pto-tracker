@@ -1,0 +1,4 @@
+<p>API URL: {{apiInfo.url}}</p>
+<p>Authentication Token: {{apiInfo.token}}</p>
+
+{{timeEntries}}

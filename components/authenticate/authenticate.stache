@@ -1,0 +1,9 @@
+<div>
+  <label for="url">API URL</label>
+  <input type="text" id="url" value:bind="url" />
+</div>
+<div>
+  <label for="token">Authentication Token</label>
+  <input type="text" id="token" value:bind="token" />
+</div>
+<button on:click="authenticate()">Authenticate</button>
