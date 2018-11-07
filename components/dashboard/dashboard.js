@@ -11,11 +11,11 @@ Component.extend({
       Type: APIInfo
     },
     timeEntries: {
+      Type: TimeEntries,
       default () {
         const { url, token } = this.apiInfo
         return new TimeEntries(url, token)
-      },
-      Type: TimeEntries
+      }
     }
   }
 })
