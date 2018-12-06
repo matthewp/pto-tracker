@@ -36,6 +36,8 @@ export default DefineMap.extend('TimeEntries', {
       method: 'POST',
       headers,
       body
-    }).then(response => convert.xml2json(response.text()))
+    }).then(response => {
+      return response.text().then(result => convert.xml2json(result, { compact: true }))
+    })
   }
 })
