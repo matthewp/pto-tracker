@@ -1,4 +1,5 @@
 import { DefineMap } from 'can'
+import convert from 'xml-js'
 
 /**
  * On the initial request we will get a response that includes an
@@ -12,36 +13,29 @@ import { DefineMap } from 'can'
  */
 
 export default DefineMap.extend('TimeEntries', {
-  init (url, token) {
-    this.requestTimes(url, token)
-  },
+  token: 'string',
+  url: 'string',
 
-  requestBody (page = 0) {
+  requestBodyFor (page = 0) {
     return `
       <?xml version="1.0" encoding="utf-8"?>
       <request method="time_entry.list">
         ${(page > 0) ? `<page>${page}</page>` : ''}
-        <per_page>10</per_page>
+        <per_page>100</per_page>
       </request>
     `
   },
 
-  requestTimes (url, token, page = 0) {
+  requestEntries (page = 0) {
     const headers = new window.Headers()
-    headers.append('Authorization', `Basic ${window.btoa(token + ':' + 'X')}`)
+    headers.append('Authorization', `Basic ${window.btoa(this.token + ':' + 'X')}`)
     headers.append('Content-Type', 'application/xml')
 
-    const body = this.requestBody(page)
-    return window.fetch(url, {
+    const body = this.requestBodyFor(page)
+    return window.fetch(this.url, {
       method: 'POST',
       headers,
       body
-    }).then(response => {
-      response.json().then(data => {
-        console.log(data)
-      })
-    }).catch(e => {
-      // debugger
-    })
+    }).then(response => convert.xml2json(response.text()))
   }
 })

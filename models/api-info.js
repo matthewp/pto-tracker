@@ -8,6 +8,5 @@ export default DefineMap.extend('APIInfo', {
   },
 
   token: 'string',
-
   url: 'string'
 })

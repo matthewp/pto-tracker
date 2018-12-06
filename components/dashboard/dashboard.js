@@ -13,9 +13,11 @@ Component.extend({
 
     timeEntries: {
       Type: TimeEntries,
-      default () {
+      get (__, resolve) {
         const { url, token } = this.apiInfo
-        return new TimeEntries(url, token)
+        new TimeEntries({ url, token }).requestEntries().then(entries => {
+          resolve(entries)
+        })
       }
     }
   }
