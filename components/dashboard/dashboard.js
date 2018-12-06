@@ -10,6 +10,7 @@ Component.extend({
     apiInfo: {
       Type: APIInfo
     },
+
     timeEntries: {
       Type: TimeEntries,
       default () {

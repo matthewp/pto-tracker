@@ -15,15 +15,17 @@ export default DefineMap.extend('TimeEntries', {
   init (url, token) {
     this.requestTimes(url, token)
   },
+
   requestBody (page = 0) {
     return `
       <?xml version="1.0" encoding="utf-8"?>
       <request method="time_entry.list">
         ${(page > 0) ? `<page>${page}</page>` : ''}
-        <per_page>100</per_page>
+        <per_page>10</per_page>
       </request>
     `
   },
+
   requestTimes (url, token, page = 0) {
     const headers = new window.Headers()
     headers.append('Authorization', `Basic ${window.btoa(token + ':' + 'X')}`)
@@ -35,9 +37,11 @@ export default DefineMap.extend('TimeEntries', {
       headers,
       body
     }).then(response => {
-      debugger
+      response.json().then(data => {
+        console.log(data)
+      })
     }).catch(e => {
-      debugger
+      // debugger
     })
   }
 })
