@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "steal-tools",
-    "bundle": "steal-tools bundle --dev",
+    "bundle": "steal-tools bundle --dev --no-minify",
     "lint": "standard --fix 'components/**/*.js' 'models/**/*.js'",
     "postinstall": "npm run bundle",
     "start": "http-server -c-1"
