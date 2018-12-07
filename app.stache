@@ -13,7 +13,7 @@
     {{#if(isPending)}}
       <pto-loading />
     {{else}}
-      <pto-authenticate apiInfo:bind="apiInfo" />
+      <pto-authenticate apiInfo:from="apiInfo" />
     {{/if}}
   </can-import>
 {{/if}}
