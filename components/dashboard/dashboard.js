@@ -17,6 +17,14 @@ Component.extend({
       get () {
         return new TimeEntries(this.apiInfo)
       }
+    },
+
+    developerMode: {
+      default: true
+    },
+
+    toggleDevMode () {
+      this.developerMode = !this.developerMode
     }
   }
 })

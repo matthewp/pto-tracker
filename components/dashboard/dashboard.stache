@@ -1,11 +1,21 @@
-<p>API URL: {{apiInfo.url}}</p>
-<p>Authentication Token: {{apiInfo.token}}</p>
+<!-- REMOVE THIS, DEV CODE -->
+<label for="mode">Developer Mode</label>
+<input id="mode" type="checkbox"
+  checked:bind="developerMode"
+/>
 
-Started On: {{timeEntries.firstEntry}}
-<br />
-Last Billed: {{timeEntries.lastEntry}}
-<br />
-{{#for(entry of timeEntries.allTimeOff)}}
-  {{entry.date}} &nbsp;&nbsp; {{entry.hours}}
+{{#if(developerMode)}}
+  <p>API URL: {{apiInfo.url}}</p>
+  <p>Authentication Token: {{apiInfo.token}}</p>
+
+  Started On: {{timeEntries.firstEntry}}
   <br />
-{{/for}}
+  Last Billed: {{timeEntries.lastEntry}}
+  <br />
+  {{#for(entry of timeEntries.allTimeOff)}}
+    {{entry.date}} &nbsp;&nbsp; {{entry.hours}}
+    <br />
+  {{/for}}
+{{else}}
+  <!-- REAL MARKUP GOES HERE -->
+{{/if}}
