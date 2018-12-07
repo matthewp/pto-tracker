@@ -25,15 +25,20 @@ Component.extend({
 
     remainingHours: {
       get () {
-        // const accrued = this.totalAccruedByYear
-        // const used = this.totalUsedByYear
-        return 59.6
+        const accrued = this.totalAccruedByYear
+        const used = this.totalUsedByYear
+        if (accrued && used) {
+          const result = Object.values(_.mergeWith(accrued, used, (a, u) => a - u))
+              .reduce((acc, v) => acc + v)
+          return result.toFixed(1)
+        }
+        return 0.0
       }
     },
 
     remainingDays: {
       get () {
-        return this.remainingHours / 8
+        return (this.remainingHours / 8).toFixed(1)
       }
     },
 
@@ -56,7 +61,7 @@ Component.extend({
     },
 
     totalAccruedHoursByYear (firstDay, lastDay) {
-      if (!firstDay || !lastDay) return {}
+      if (!firstDay || !lastDay) return undefined
 
       const firstMonth = parseInt(firstDay.split('-')[1])
       const firstYear = parseInt(firstDay.split('-')[0])
@@ -90,7 +95,7 @@ Component.extend({
     },
 
     totalUsedHoursByYear (used) {
-      if (!used) return {}
+      if (!used) return undefined
 
       const total = {}
       const entries = _.groupBy(used, (e) => {
@@ -103,13 +108,5 @@ Component.extend({
       })
       return total
     },
-
-    developerMode: {
-      default: false
-    },
-
-    toggleDevMode () {
-      this.developerMode = !this.developerMode
-    }
   }
 })

@@ -1,36 +1,18 @@
-<!-- REMOVE THIS, DEV CODE -->
-<label for="mode">Developer Mode</label>
-<input id="mode" type="checkbox"
-  checked:bind="developerMode"
-/>
-
-{{#if(developerMode)}}
-  <p>API URL: {{apiInfo.url}}</p>
-  <p>Authentication Token: {{apiInfo.token}}</p>
-
-  Started On: {{timeEntries.firstDay}}
-  <br />
-  Last Billed: {{timeEntries.lastDay}}
-  <br />
-  {{#for(entry of timeEntries.allTimeOff)}}
-    {{entry.date}} &nbsp;&nbsp; {{entry.hours}}
-    <br />
-  {{/for}}
-{{else}}
-  <div class="second-step display-wrapper">
-    <div class="number-wrapper">
-      <div class="hours-container">
-        <h1>{{remainingHours}}</h1>
-        <h4>hours remaining</h4>
-      </div>
-      <div class="days-container">
-        <h2>{{remainingDays}}</h2>
-        <h4>days remaining</h4>
-      </div>
+<div class="second-step display-wrapper">
+  <div class="number-wrapper">
+    <div class="hours-container">
+      <h1>{{remainingHours}}</h1>
+      <h4>hours remaining</h4>
     </div>
-    <div class="useby-wrapper">
-      <h4>you will stop accruing hours by</h4>
-      <h2>{{stopAccruingBy}}</h2>
+    <div class="days-container">
+      <h2>{{remainingDays}}</h2>
+      <h4>days remaining</h4>
     </div>
   </div>
-{{/if}}
+  <!--
+  <div class="useby-wrapper">
+    <h4>you will stop accruing hours by</h4>
+    <h2>{{stopAccruingBy}}</h2>
+  </div>
+  -->
+</div>
