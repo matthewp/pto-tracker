@@ -8,9 +8,9 @@
   <p>API URL: {{apiInfo.url}}</p>
   <p>Authentication Token: {{apiInfo.token}}</p>
 
-  Started On: {{timeEntries.firstEntry}}
+  Started On: {{timeEntries.firstDay}}
   <br />
-  Last Billed: {{timeEntries.lastEntry}}
+  Last Billed: {{timeEntries.lastDay}}
   <br />
   {{#for(entry of timeEntries.allTimeOff)}}
     {{entry.date}} &nbsp;&nbsp; {{entry.hours}}

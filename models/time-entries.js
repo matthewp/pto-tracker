@@ -6,21 +6,12 @@ import APIInfo from '~/models/api-info'
 export default DefineMap.extend('TimeEntries', {
   init (apiInfo) {
     this.apiInfo = apiInfo
-
-    this.requestEntries().then(entries => {
-      this.requestEntries(this.howManyPages(entries)).then(earliest => {
-        this.lastEntry =
-          this.selectEntryAt(entries, 0).date._text
-
-        const selected = earliest.response.time_entries.time_entry.length - 1
-        this.firstEntry =
-          this.selectEntryAt(earliest, selected).date._text
-      })
-    })
   },
 
   allTimeOff: {
-    get (__, resolve) {
+    get (lastSet, resolve) {
+      if (lastSet) return lastSet
+
       const promised = []
       this.requestEntries(0, true).then(entries => {
         promised.push(Promise.resolve(entries))
@@ -33,12 +24,11 @@ export default DefineMap.extend('TimeEntries', {
         }
         Promise.all(promised).then(results => {
           const collected = results.map(r => {
-            return r.response.time_entries.time_entry.map(e => {
-              return {
-                date: e.date._text,
-                hours: e.hours._text
-              }
+            const entries = []
+            r.response.time_entries.time_entry.forEach(e => {
+              entries.push({ date: e.date._text, hours: e.hours._text })
             })
+            return entries
           })
           resolve([].concat.apply([], collected))
         })
@@ -50,9 +40,34 @@ export default DefineMap.extend('TimeEntries', {
     Type: APIInfo
   },
 
-  firstEntry: 'string',
+  firstDay: {
+    get (lastSet, resolve) {
+      if (lastSet) return lastSet
+      this.firstLastDays().then(resolve)
+    }
+  },
 
-  lastEntry: 'string',
+  lastDay: {
+    get (lastSet, resolve) {
+      if (lastSet) return lastSet
+      this.firstLastDays(false).then(resolve)
+    }
+  },
+
+  firstLastDays (first = true) {
+    return this.requestEntries().then(entries => {
+      return this.requestEntries(this.howManyPages(entries)).then(earliest => {
+        const lastDay =
+          this.selectEntryAt(entries, 0).date._text
+
+        const selected = earliest.response.time_entries.time_entry.length - 1
+        const firstDay =
+          this.selectEntryAt(earliest, selected).date._text
+
+        return (first) ? firstDay : lastDay
+      })
+    })
+  },
 
   howManyPages (entries) {
     return parseInt(entries.response.time_entries._attributes.pages)
