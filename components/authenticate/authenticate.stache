@@ -1,9 +1,16 @@
-<div>
-  <label for="url">API URL</label>
-  <input type="text" id="url" value:bind="url" />
+<h1>Bitovi PTO Tracker</h1>
+<div class="first-step form-wrapper">
+  <form>
+    <label for="api">Freshbooks API URL</label>
+    <input type="text" id="api" value:bind="url" />
+    <label for="token">Authentication Token</label>
+    <input type="text" id="token" value:bind="token" />
+    <button on:click="authenticate()">
+      Authenticate
+    </button>
+    <small>
+      <i class="far fa-question-circle"></i>
+      To find the Freshbooks API and authentication token...
+    </small>
+  </form>
 </div>
-<div>
-  <label for="token">Authentication Token</label>
-  <input type="text" id="token" value:bind="token" />
-</div>
-<button on:click="authenticate()">Authenticate</button>

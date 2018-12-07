@@ -19,8 +19,16 @@ Component.extend({
       }
     },
 
+    remainingHours: {
+      default: 59.6,
+    },
+
+    get remainingDays() {
+      return this.remainingHours / 8;
+    },
+
     developerMode: {
-      default: true
+      default: false
     },
 
     toggleDevMode () {

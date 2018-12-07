@@ -17,5 +17,23 @@
     <br />
   {{/for}}
 {{else}}
-  <!-- REAL MARKUP GOES HERE -->
+  <div class="second-step display-wrapper">
+    <div class="number-wrapper">
+      <div class="hours-container">
+        <h1>{{remainingHours}}</h1>
+        <h3>hours</h3>
+      </div>
+      <div class="days-container">
+        <h2>{{remainingDays}}</h2>
+        <h3>days</h3>
+      </div>
+    </div>
+    <!--
+    <div class="useby-wrapper">
+      <h3>use at least</h3>
+      <h1>2 <small>hours</small></h1>
+      <h3>before <span class="underline">December</span></h3>
+    </div>
+    -->
+  </div>
 {{/if}}
