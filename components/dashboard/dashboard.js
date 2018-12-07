@@ -25,6 +25,8 @@ Component.extend({
 
     remainingHours: {
       get () {
+        // const accrued = this.totalAccruedByYear
+        // const used = this.totalUsedByYear
         return 59.6
       }
     },
@@ -39,62 +41,66 @@ Component.extend({
       default: 'Aug 2019'
     },
 
-    entriesByYear (entries) {
-      if (entries) {
-        const grouped = _.groupBy(entries, (e) => {
-          return e.date.split('-')[0]
-        })
-        return grouped
+    totalAccruedByYear: {
+      get () {
+        const firstDay = this.timeEntries.firstDay
+        const lastDay = this.timeEntries.lastDay
+        return this.totalAccruedHoursByYear(firstDay, lastDay)
       }
-      return {}
     },
 
-    totalAccruedHoursByYear () {
-      const firstDay = this.timeEntries.firstDay
-      const lastDay = this.timeEntries.lastDay
-      if (firstDay && lastDay) {
-        const firstMonth = parseInt(firstDay.split('-')[1])
-        const firstYear = parseInt(firstDay.split('-')[0])
+    totalUsedByYear: {
+      get () {
+        return this.totalUsedHoursByYear(this.timeEntries.allTimeOff)
+      }
+    },
 
-        const today = new Date()
-        const lastMonth = today.getMonth()
-        const lastYear = today.getFullYear()
+    totalAccruedHoursByYear (firstDay, lastDay) {
+      if (!firstDay || !lastDay) return {}
 
-        const accruedByYear = {}
+      const firstMonth = parseInt(firstDay.split('-')[1])
+      const firstYear = parseInt(firstDay.split('-')[0])
 
-        let anniversary = 0
-        accruedByYear['' + firstYear] = 0
-        for (let m = firstMonth, y = firstYear; m <= 12; m++) {
-          accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
-        }
+      const today = new Date()
+      const lastMonth = today.getMonth()
+      const lastYear = today.getFullYear()
 
-        for (let y = firstYear + 1; y <= lastYear - 1; y++) {
-          anniversary += 1
-          accruedByYear['' + y] = 0
-          for (let m = 1; m <= 12; m++) {
-            accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
-          }
-        }
+      const accruedByYear = {}
 
+      let anniversary = 0
+      accruedByYear['' + firstYear] = 0
+      for (let m = firstMonth, y = firstYear; m <= 12; m++) {
+        accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
+      }
+
+      for (let y = firstYear + 1; y <= lastYear - 1; y++) {
         anniversary += 1
-        accruedByYear['' + lastYear] = 0
-        for (let m = 1, y = lastYear; m <= lastMonth; m++) {
+        accruedByYear['' + y] = 0
+        for (let m = 1; m <= 12; m++) {
           accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
         }
       }
-      return {}
+
+      anniversary += 1
+      accruedByYear['' + lastYear] = 0
+      for (let m = 1, y = lastYear; m <= lastMonth; m++) {
+        accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
+      }
+      return accruedByYear
     },
 
-    totalUsedHoursByYear () {
-      const entries = this.entriesByYear(this.timeEntries.allTimeOff)
+    totalUsedHoursByYear (used) {
+      if (!used) return {}
+
       const total = {}
-      if (entries) {
-        Object.keys(entries).forEach(k => {
-          total[k] = entries[k].reduce((acc, e) => {
-            return acc + parseFloat(e.hours)
-          }, 0)
-        })
-      }
+      const entries = _.groupBy(used, (e) => {
+        return e.date.split('-')[0]
+      })
+      Object.keys(entries).forEach(k => {
+        total[k] = entries[k].reduce((acc, e) => {
+          return acc + parseFloat(e.hours)
+        }, 0)
+      })
       return total
     },
 
