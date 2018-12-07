@@ -27,6 +27,10 @@ Component.extend({
       return this.remainingHours / 8;
     },
 
+    stopAccruingBy: {
+      default: 'Aug \'19'
+    },
+
     developerMode: {
       default: false
     },
