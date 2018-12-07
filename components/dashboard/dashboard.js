@@ -28,7 +28,7 @@ Component.extend({
     },
 
     stopAccruingBy: {
-      default: 'Aug \'19'
+      default: 'Aug 2019'
     },
 
     developerMode: {
