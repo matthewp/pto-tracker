@@ -1,5 +1,6 @@
 import { DefineMap } from 'can'
 import convert from 'xml-js'
+import moment from 'moment'
 
 import APIInfo from '~/models/api-info'
 
@@ -14,6 +15,7 @@ export default DefineMap.extend('TimeEntries', {
       if (lastSet) return lastSet
 
       const promised = []
+      const today = moment()
       this.requestEntries(1, true).then(entries => {
         promised.push(Promise.resolve(entries))
 
@@ -27,7 +29,10 @@ export default DefineMap.extend('TimeEntries', {
           const collected = results.map(r => {
             const entries = []
             r.response.time_entries.time_entry.forEach(e => {
-              entries.push({ date: e.date._text, hours: e.hours._text })
+              const date = moment(e.date._text, 'YYYY-MM-DD')
+              if (date.isBefore(today) || date.isSame(today)) {
+                entries.push({ date: e.date._text, hours: e.hours._text })
+              }
             })
             return entries
           })
