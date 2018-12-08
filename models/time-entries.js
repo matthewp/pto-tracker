@@ -6,6 +6,7 @@ import APIInfo from '~/models/api-info'
 export default DefineMap.extend('TimeEntries', {
   init (apiInfo) {
     this.apiInfo = apiInfo
+    this.setFirstAndLastDays()
   },
 
   allTimeOff: {
@@ -13,7 +14,7 @@ export default DefineMap.extend('TimeEntries', {
       if (lastSet) return lastSet
 
       const promised = []
-      this.requestEntries(0, true).then(entries => {
+      this.requestEntries(1, true).then(entries => {
         promised.push(Promise.resolve(entries))
 
         let current = 2
@@ -40,31 +41,19 @@ export default DefineMap.extend('TimeEntries', {
     Type: APIInfo
   },
 
-  firstDay: {
-    get (lastSet, resolve) {
-      if (lastSet) return lastSet
-      this.firstLastDays().then(resolve)
-    }
-  },
+  firstDay: 'string',
 
-  lastDay: {
-    get (lastSet, resolve) {
-      if (lastSet) return lastSet
-      this.firstLastDays(false).then(resolve)
-    }
-  },
+  lastDay: 'string',
 
-  firstLastDays (first = true) {
+  setFirstAndLastDays () {
     return this.requestEntries().then(entries => {
       return this.requestEntries(this.howManyPages(entries)).then(earliest => {
-        const lastDay =
+        this.lastDay =
           this.selectEntryAt(entries, 0).date._text
 
         const selected = earliest.response.time_entries.time_entry.length - 1
-        const firstDay =
+        this.firstDay =
           this.selectEntryAt(earliest, selected).date._text
-
-        return (first) ? firstDay : lastDay
       })
     })
   },
@@ -73,18 +62,18 @@ export default DefineMap.extend('TimeEntries', {
     return parseInt(entries.response.time_entries._attributes.pages)
   },
 
-  requestBodyFor (page = 0, filterByTask = false) {
+  requestBodyFor (page = 1, filterByTask = false) {
     return `
       <?xml version="1.0" encoding="utf-8"?>
       <request method="time_entry.list">
         ${(filterByTask) ? '<task_id>48</task_id>' : ''}
-        ${(page > 0) ? `<page>${page}</page>` : ''}
+        <page>${page}</page>
         <per_page>100</per_page>
       </request>
     `
   },
 
-  requestEntries (page = 0, filter = false) {
+  requestEntries (page = 1, filter = false) {
     const headers = new window.Headers()
     headers.append('Authorization', `Basic ${window.btoa(this.apiInfo.token + ':' + 'X')}`)
     headers.append('Content-Type', 'application/xml')
