@@ -29,7 +29,7 @@ Component.extend({
         const used = this.totalUsedByYear
         if (accrued && used) {
           const result = Object.values(_.mergeWith(accrued, used, (a, u) => a - u))
-              .reduce((acc, v) => acc + v)
+            .reduce((acc, v) => acc + v)
           return result.toFixed(1)
         }
         return 0.0
@@ -82,14 +82,20 @@ Component.extend({
         anniversary += 1
         accruedByYear['' + y] = 0
         for (let m = 1; m <= 12; m++) {
-          accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
+          const increaseBy = (anniversary >= HOURS_PER_MONTH_PER_YEAR.length)
+            ? HOURS_PER_MONTH_PER_YEAR[HOURS_PER_MONTH_PER_YEAR.length - 1]
+            : HOURS_PER_MONTH_PER_YEAR[anniversary]
+          accruedByYear['' + y] += increaseBy
         }
       }
 
       anniversary += 1
       accruedByYear['' + lastYear] = 0
       for (let m = 1, y = lastYear; m <= lastMonth; m++) {
-        accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
+        const increaseBy = (anniversary >= HOURS_PER_MONTH_PER_YEAR.length)
+          ? HOURS_PER_MONTH_PER_YEAR[HOURS_PER_MONTH_PER_YEAR.length - 1]
+          : HOURS_PER_MONTH_PER_YEAR[anniversary]
+        accruedByYear['' + y] += increaseBy
       }
       return accruedByYear
     },
@@ -107,6 +113,6 @@ Component.extend({
         }, 0)
       })
       return total
-    },
+    }
   }
 })
