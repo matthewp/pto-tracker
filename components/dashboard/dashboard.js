@@ -6,7 +6,7 @@ import TimeEntries from '~/models/time-entries'
 
 import view from './dashboard.stache'
 
-const HOURS_PER_MONTH_PER_YEAR = [13.333, 13.333, 15.333, 15.333, 15.333, 17.333]
+const HOURS_PER_MONTH = [13.333, 13.333, 15.333, 15.333, 15.333, 17.333]
 
 Component.extend({
   tag: 'pto-dashboard',
@@ -75,16 +75,16 @@ Component.extend({
       let anniversary = 0
       accruedByYear['' + firstYear] = 0
       for (let m = firstMonth, y = firstYear; m <= 12; m++) {
-        accruedByYear['' + y] += HOURS_PER_MONTH_PER_YEAR[anniversary]
+        accruedByYear['' + y] += HOURS_PER_MONTH[anniversary]
       }
 
       for (let y = firstYear + 1; y <= lastYear - 1; y++) {
         anniversary += 1
         accruedByYear['' + y] = 0
         for (let m = 1; m <= 12; m++) {
-          const increaseBy = (anniversary >= HOURS_PER_MONTH_PER_YEAR.length)
-            ? HOURS_PER_MONTH_PER_YEAR[HOURS_PER_MONTH_PER_YEAR.length - 1]
-            : HOURS_PER_MONTH_PER_YEAR[anniversary]
+          const increaseBy = (anniversary >= HOURS_PER_MONTH.length)
+            ? HOURS_PER_MONTH[HOURS_PER_MONTH.length - 1]
+            : HOURS_PER_MONTH[anniversary]
           accruedByYear['' + y] += increaseBy
         }
       }
@@ -92,9 +92,9 @@ Component.extend({
       anniversary += 1
       accruedByYear['' + lastYear] = 0
       for (let m = 1, y = lastYear; m <= lastMonth; m++) {
-        const increaseBy = (anniversary >= HOURS_PER_MONTH_PER_YEAR.length)
-          ? HOURS_PER_MONTH_PER_YEAR[HOURS_PER_MONTH_PER_YEAR.length - 1]
-          : HOURS_PER_MONTH_PER_YEAR[anniversary]
+        const increaseBy = (anniversary >= HOURS_PER_MONTH.length)
+          ? HOURS_PER_MONTH[HOURS_PER_MONTH.length - 1]
+          : HOURS_PER_MONTH[anniversary]
         accruedByYear['' + y] += increaseBy
       }
       return accruedByYear

@@ -1,11 +1,19 @@
 <div class="second-step display-wrapper">
   <div class="number-wrapper">
     <div class="hours-container">
-      <h1>{{remainingHours}}</h1>
+      {{#if(remainingHours)}}
+        <h1>{{remainingHours}}</h1>
+      {{else}}
+        <h1>--</h1>
+      {{/if}}
       <h4>hours remaining</h4>
     </div>
     <div class="days-container">
-      <h2>{{remainingDays}}</h2>
+      {{#if(remainingHours)}}
+        <h2>{{remainingDays}}</h2>
+      {{else}}
+        <h2>--</h2>
+      {{/if}}
       <h4>days remaining</h4>
     </div>
   </div>
