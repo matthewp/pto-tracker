@@ -8,7 +8,8 @@
     </button>
     <small>
       <i class="far fa-question-circle"></i>
-      To find the Freshbooks API and authentication token...
+      To find your API Token, log into Freshbooks, go to 'Profile'
+      and scroll to the bottom of that page.
     </small>
   </form>
 </div>
