@@ -1,33 +1,46 @@
 .display-wrapper {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   margin: 60px auto 0;
 }
 
+.hours-container, .days-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 39vw;
+  max-width: 24%;
+}
+
 .number-wrapper, .useby-wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-direction: row;
-  margin: 0 auto;
 }
 .number-wrapper {
-  margin-bottom: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 2vw;
 }
 
 .number-wrapper .hours-container {
   background: #CB3036;
   color: #FFFFFF;
-  padding: 30px;
+  padding: 15px 30px 30px;
+}
+
+.hours-container {
+  margin: 0 1vw 0 auto;
 }
 
 .days-container {
   background: #FFFFFF;
   color: #CCCCCC;
-  border: 10px solid #CCCCCC;
-  margin-left: 30px;
-  padding: 30px;
+  border: 1vw solid #CCCCCC;
+  margin: 0 auto 0 1vw;
+  padding: 15px 30px 30px;
 }
 
 .useby-wrapper {
@@ -36,60 +49,85 @@
   justify-content: center;
   background: #FFFFFF;
   color: #CB3036;
-  border: 10px solid #CB3036;
-  margin-bottom: 60px;
+  border: 1vw solid #CB3036;
+  margin: 0 auto 60px;
   padding: 45px 30px 30px;
+  width: 80vw;
+  max-width: 50%;
 }
 
-.hours-container h1, .days-container h1, .useby-wrapper h1 {
-  font-size: 120px;
+.hours-container h1, .days-container h1 {
+  font-size: 8vw;
   text-align: center;
   font-weight: 800;
-  margin-top: -15px;
+  margin: 0;
+  padding: 0;
 }
 
-.hours-container h2, .days-container h2, .useby-wrapper h2 {
-  font-size: 90px;
-  text-align: center;
-  font-weight: 400;
-}
-
-.hours-container h3, .days-container h3, .useby-wrapper h3 {
-  font-size: 45px;
-  text-align: center;
-  font-weight: 400;
-  margin-top: -15px;
-}
-
-.hours-container h4, .days-container h4, .useby-wrapper h4 {
-  font-size: 35px;
-  text-align: center;
-  font-weight: 400;
-  margin-top: -15px;
+.days-container h1 {
+  font-weight: 200;
 }
 
 .useby-wrapper h2 {
+  font-size: 6vw;
+  text-align: center;
   font-weight: 800;
+  margin: 0;
+  padding: 0;
+}
+
+.hours-container h4, .days-container h4, .useby-wrapper h4 {
+  font-size: 2vw;
+  text-align: center;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
 }
 
 .useby-wrapper .underline {
   border-bottom: 3px solid #CB3036;
 }
 
-@media (max-width: 579px) {
-  .useby-wrapper, .days-container, .hours-container {
-    border-width: 5px;
+@media (max-width: 1023px) {
+  .hours-container, .days-container {
+    width: 44vw;
+    max-width: 44%;
   }
-  .hours-container h1, .days-container h1, .useby-wrapper h1 {
-    font-size: 72px;
-    margin-top: -15px;
+  .useby-wrapper {
+    width: 90vw;
+    max-width: 90%;
   }
-  .hours-container h2, .days-container h2, .useby-wrapper h2 {
-    font-size: 52px;
-    margin-top: -15px;
+  .hours-container h4, .days-container h4, .useby-wrapper h4 {
+    font-size: 3vw;
   }
-  .hours-container h3, .days-container h3, .useby-wrapper h3 {
-    font-size: 28px;
-    margin-top: -15px;
+  .useby-wrapper h2 {
+    font-size: 8vw;
+  }
+}
+
+@media (max-width: 609px) {
+  .hours-container, .days-container {
+    width: 80vw;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  .hours-container {
+    margin-bottom: 2vw;
+  }
+  .useby-wrapper {
+    width: 80vw;
+    max-width: 80%;
+  }
+  .hours-container h1, .days-container h1 {
+    font-size: 20vw;
+  }
+  .useby-wrapper h2 {
+    font-size: 18vw;
+  }
+  .hours-container h4, .days-container h4, .useby-wrapper h4 {
+    font-size: 5vw;
+  }
+  .useby-wrapper h2 {
+    font-size: 12vw;
   }
 }

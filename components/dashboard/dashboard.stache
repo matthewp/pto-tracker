@@ -10,9 +10,9 @@
     </div>
     <div class="days-container">
       {{#if(remainingHours)}}
-        <h2>{{remainingDays}}</h2>
+        <h1>{{remainingDays}}</h1>
       {{else}}
-        <h2>--</h2>
+        <h1>--</h1>
       {{/if}}
       <h4>days remaining</h4>
     </div>
