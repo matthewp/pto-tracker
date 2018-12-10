@@ -34,7 +34,6 @@ Component.extend({
 
     authenticate (ev) {
       ev.preventDefault()
-
       if (TOKEN_VALIDATE.test(this.token)) {
         this.validToken = true
 
@@ -44,6 +43,6 @@ Component.extend({
         this.validToken = false
         document.querySelector('input#token').select()
       }
-    },
+    }
   }
 })
