@@ -38,7 +38,8 @@ Component.extend({
 
     remainingDays: {
       get () {
-        return (this.remainingHours / 8).toFixed(1)
+        const hours = this.remainingHours
+        return (hours < 8) ? 0 : (hours / 8).toFixed(1)
       }
     },
 
