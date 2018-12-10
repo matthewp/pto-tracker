@@ -1,9 +1,16 @@
 <h1>Bitovi PTO Tracker</h1>
 <div class="first-step form-wrapper">
   <form>
-    <label for="token">Freshbooks API Token</label>
+    <label for="token" {{#unless(validToken)}}class="invalid-token"{{/if}}>
+      {{#if(validToken)}}
+        Freshbooks API Token
+      {{else}}
+        <i class="fas fa-exclamation-triangle"></i>
+        Double-check your API Token
+      {{/if}}
+    </label>
     <input type="text" id="token" value:bind="token" />
-    <button on:click="authenticate()">
+    <button on:click="authenticate(scope.event)">
       Authenticate
     </button>
     <small>
