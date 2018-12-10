@@ -82,9 +82,11 @@ export default DefineMap.extend('TimeEntries', {
     const headers = new window.Headers()
     headers.append('Authorization', `Basic ${window.btoa(this.apiInfo.token + ':' + 'X')}`)
     headers.append('Content-Type', 'application/xml')
+    headers.append('X-Requested-With', 'XMLHttpRequest')
     const body = this.requestBodyFor(page, filter)
 
-    return window.fetch(this.apiInfo.url, {
+    const url = `https://cors-anywhere.herokuapp.com/${this.apiInfo.url}`
+    return window.fetch(url, {
       method: 'POST',
       headers,
       body
