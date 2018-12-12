@@ -6,14 +6,15 @@
   "scripts": {
     "build": "steal-tools",
     "bundle": "steal-tools bundle --dev --no-minify",
+    "develop": "other-index development.html",
     "lint": "standard --fix 'components/**/*.js' 'models/**/*.js'",
     "postinstall": "npm run bundle",
-    "start": "http-server -c-1"
+    "start": "other-index production.html 3000"
   },
   "author": "Mark Stahl <mjstahl@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^0.11.1",
+    "@mjstahl/other-index": "^0.2.0",
     "node": "^10.14.0",
     "standard": "^12.0.1",
     "steal-tools": "^2.0.11"
