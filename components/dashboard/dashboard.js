@@ -61,6 +61,13 @@ Component.extend({
       }
     },
 
+    hoursPerMonth(anniversary) {
+      const last = HOURS_PER_MONTH.length - 1
+      return (anniversary >= HOURS_PER_MONTH.length)
+        ? HOURS_PER_MONTH[last]
+        : HOURS_PER_MONTH[anniversary]
+    },
+
     totalAccruedHoursByYear (firstDay, lastDay) {
       if (!firstDay || !lastDay) return undefined
 
@@ -76,27 +83,21 @@ Component.extend({
       let anniversary = 0
       accruedByYear['' + firstYear] = 0
       for (let m = firstMonth, y = firstYear; m <= 12; m++) {
-        accruedByYear['' + y] += HOURS_PER_MONTH[anniversary]
+        accruedByYear['' + y] += this.hoursPerMonth(anniversary)
       }
 
       for (let y = firstYear + 1; y <= lastYear - 1; y++) {
         anniversary += 1
         accruedByYear['' + y] = 0
         for (let m = 1; m <= 12; m++) {
-          const increaseBy = (anniversary >= HOURS_PER_MONTH.length)
-            ? HOURS_PER_MONTH[HOURS_PER_MONTH.length - 1]
-            : HOURS_PER_MONTH[anniversary]
-          accruedByYear['' + y] += increaseBy
+          accruedByYear['' + y] += this.hoursPerMonth(anniversary)
         }
       }
 
       anniversary += 1
       accruedByYear['' + lastYear] = 0
       for (let m = 1, y = lastYear; m <= lastMonth; m++) {
-        const increaseBy = (anniversary >= HOURS_PER_MONTH.length)
-          ? HOURS_PER_MONTH[HOURS_PER_MONTH.length - 1]
-          : HOURS_PER_MONTH[anniversary]
-        accruedByYear['' + y] += increaseBy
+        accruedByYear['' + y] += this.hoursPerMonth(anniversary)
       }
       return accruedByYear
     },
