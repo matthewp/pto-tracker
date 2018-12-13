@@ -6,7 +6,7 @@ import TimeEntries from '~/models/time-entries'
 
 import view from './dashboard.stache'
 
-const HOURS_PER_MONTH = [13.333, 13.333, 15.333, 15.333, 15.333, 17.333]
+const HOURS_PER_MONTH = [13.333, 13.333, 13.333, 15.333, 15.333, 17.333]
 
 Component.extend({
   tag: 'pto-dashboard',
