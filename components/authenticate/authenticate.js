@@ -1,8 +1,8 @@
 import { Component } from 'can'
-import APIInfo from '~/models/api-info'
-import view from './authenticate.stache'
 
-const TOKEN_VALIDATE = /\b[0-9a-f]{5,40}\b/
+import APIInfo from '~/models/api-info'
+
+import view from './authenticate.stache'
 
 Component.extend({
   tag: 'pto-authenticate',
@@ -34,6 +34,8 @@ Component.extend({
 
     authenticate (ev) {
       ev.preventDefault()
+
+      const TOKEN_VALIDATE = /\b[0-9a-f]{5,40}\b/
       if (TOKEN_VALIDATE.test(this.token)) {
         this.validToken = true
 
