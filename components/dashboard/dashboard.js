@@ -14,6 +14,32 @@ Component.extend({
       Type: APIInfo
     },
 
+    get remainingHours () {
+      const accrued = this.totalAccruedByYear
+      const used = this.totalUsedByYear
+      if (accrued && used) {
+        const result = Object.values(_.mergeWith(accrued, used, (a, u) => a - u))
+          .reduce((acc, v) => acc + v)
+        return result.toFixed(1)
+      }
+      return 0.0
+    },
+
+    get remainingDays () {
+      const hours = this.remainingHours
+      return (hours < 8) ? 0 : (hours / 8).toFixed(1)
+    },
+
+    // stopAccruingBy: {
+    //   default: 'Aug 2019'
+    // },
+
+    get totalAccruedByYear () {
+      const firstDay = this.timeEntries.firstDay
+      const lastDay = this.timeEntries.lastDay
+      return this.totalAccruedHoursByYear(firstDay, lastDay)
+    },
+
     timeEntries: {
       get (lastSet) {
         if (lastSet) return lastSet
@@ -21,45 +47,11 @@ Component.extend({
       }
     },
 
-    remainingHours: {
-      get () {
-        const accrued = this.totalAccruedByYear
-        const used = this.totalUsedByYear
-        if (accrued && used) {
-          const result = Object.values(_.mergeWith(accrued, used, (a, u) => a - u))
-            .reduce((acc, v) => acc + v)
-          return result.toFixed(1)
-        }
-        return 0.0
-      }
+    get totalUsedByYear () {
+      return this.totalUsedHoursByYear(this.timeEntries.allTimeOff)
     },
 
-    remainingDays: {
-      get () {
-        const hours = this.remainingHours
-        return (hours < 8) ? 0 : (hours / 8).toFixed(1)
-      }
-    },
-
-    stopAccruingBy: {
-      default: 'Aug 2019'
-    },
-
-    totalAccruedByYear: {
-      get () {
-        const firstDay = this.timeEntries.firstDay
-        const lastDay = this.timeEntries.lastDay
-        return this.totalAccruedHoursByYear(firstDay, lastDay)
-      }
-    },
-
-    totalUsedByYear: {
-      get () {
-        return this.totalUsedHoursByYear(this.timeEntries.allTimeOff)
-      }
-    },
-
-    hoursPerMonth(anniversary) {
+    hoursPerMonth (anniversary) {
       const HOURS_PER_MONTH = [13.333, 13.333, 13.333, 15.333, 15.333, 17.333]
       const last = HOURS_PER_MONTH.length - 1
       return (anniversary >= HOURS_PER_MONTH.length)
