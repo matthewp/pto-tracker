@@ -17,4 +17,26 @@
       <h4>days available</h4>
     </div>
   </div>
+  <table>
+    <tfoot colspan="3">
+      You will stop accruing PTO in Mar 2019 unless some is spent.
+    </tfoot>
+    <tbody>
+      <tr>
+        <td>Jan 2019</td>
+        <td>17.33</td>
+        <td>36.34</td>
+      </tr>
+      <tr>
+        <td>Feb 2019</td>
+        <td>17.33</td>
+        <td>53.67</td>
+      </tr>
+      <tr>
+        <td>Mar 2019</td>
+        <td>17.33</td>
+        <td>71</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
