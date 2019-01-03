@@ -50,19 +50,6 @@ export default DefineMap.extend('TimeEntries', {
 
   lastDay: 'string',
 
-  setFirstAndLastDays () {
-    return this.requestEntries().then(entries => {
-      return this.requestEntries(this.howManyPages(entries)).then(earliest => {
-        this.lastDay =
-          this.selectEntryAt(entries, 0).date._text
-
-        const selected = earliest.response.time_entries.time_entry.length - 1
-        this.firstDay =
-          this.selectEntryAt(earliest, selected).date._text
-      })
-    })
-  },
-
   howManyPages (entries) {
     return parseInt(entries.response.time_entries._attributes.pages)
   },
@@ -100,5 +87,18 @@ export default DefineMap.extend('TimeEntries', {
 
   selectEntryAt (entries, where) {
     return entries.response.time_entries.time_entry[where]
-  }
+  },
+
+  setFirstAndLastDays () {
+    return this.requestEntries().then(entries => {
+      return this.requestEntries(this.howManyPages(entries)).then(earliest => {
+        this.lastDay =
+          this.selectEntryAt(entries, 0).date._text
+
+        const selected = earliest.response.time_entries.time_entry.length - 1
+        this.firstDay =
+          this.selectEntryAt(earliest, selected).date._text
+      })
+    })
+  },
 })
