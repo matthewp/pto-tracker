@@ -6,7 +6,7 @@
       {{else}}
         <h1>--</h1>
       {{/if}}
-      <h4>hours remaining</h4>
+      <h4>hours available</h4>
     </div>
     <div class="days-container">
       {{#if(remainingHours)}}
@@ -14,14 +14,7 @@
       {{else}}
         <h1>--</h1>
       {{/if}}
-      <h4>days remaining</h4>
+      <h4>days available</h4>
     </div>
   </div>
-  <!--
-  <div class="useby-wrapper">
-    <h4>you will stop accruing hours by</h4>
-    <h2>{{stopAccruingBy}}</h2>
-    <h4>if you don't take any time off</h4>
-  </div>
-  -->
 </div>

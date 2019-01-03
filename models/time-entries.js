@@ -100,5 +100,5 @@ export default DefineMap.extend('TimeEntries', {
           this.selectEntryAt(earliest, selected).date._text
       })
     })
-  },
+  }
 })

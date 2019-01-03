@@ -14,6 +14,11 @@ Component.extend({
       Type: APIInfo
     },
 
+    get remainingDays () {
+      const hours = this.remainingHours
+      return (hours < 8) ? 0 : (hours / 8).toFixed(1)
+    },
+
     get remainingHours () {
       const accrued = this.totalAccruedByYear
       const used = this.totalUsedByYear
@@ -24,15 +29,6 @@ Component.extend({
       }
       return 0.0
     },
-
-    get remainingDays () {
-      const hours = this.remainingHours
-      return (hours < 8) ? 0 : (hours / 8).toFixed(1)
-    },
-
-    // stopAccruingBy: {
-    //   default: 'Aug 2019'
-    // },
 
     get totalAccruedByYear () {
       const firstDay = this.timeEntries.firstDay
