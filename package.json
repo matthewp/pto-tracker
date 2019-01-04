@@ -28,6 +28,14 @@
     "xml-js": "^1.6.8"
   },
   "steal": {
+    "map": {
+      "xml-js": "xml-js/dist/xml-js"
+    },
+    "meta": {
+      "xml-js/dist/xml-js": {
+        "format": "global"
+      }
+    },
     "plugins": [
       "can",
       "steal-less"
